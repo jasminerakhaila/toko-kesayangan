@@ -1,0 +1,72 @@
+{% load static %}
+
+<html>
+<head>
+    <!-- Menautkan file CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'templates/main.css' %}">
+</head>
+<body>
+    <!-- <h1>Welcome to Toko Kesayangan!</h1> -->
+
+<div class="info-container">
+  <div class="info-item">
+    <h5>NPM: {{ npm }}</h5>
+    <!-- <p>{{ npm }}</p> -->
+  </div>
+  <div class="info-item">
+    <h5>Name: {{ name }}</h5>
+    <!-- <p>{{ name }}</p> -->
+  </div>
+  <div class="info-item">
+    <h5>Class: {{ class }}</h5>
+    <!-- <p>{{ class }}</p> -->
+  </div>
+</div>
+</body>
+
+<body>
+    <h1>Welcome to Toko Kesayangan!</h1>
+    <h2>Our Products</h2>
+    <div class="product-container">
+        {% if products %}
+            {% for product in products %}
+                <div class="product-item">
+                    <h3>Product Name: {{ product.name }}</h3>
+                    <img src="https://i5.walmartimages.com/seo/Fresh-Gala-Apple-Each_f46d4fa7-6108-4450-a610-cc95a1ca28c5_3.38c2c5b2f003a0aafa618f3b4dc3cbbd.jpeg" 
+                    lt="Fresh Gala Apple" 
+                    style="width: 200px; height: auto;" 
+                    class="product-image">
+
+                    <p>Description: {{ product.description }}</p>
+                    <p>Price: Rp{{ product.price }}</p>
+                    <p>Rating: {{ product.rating }} / 5</p>
+                    <p>Date added: {{ product.time }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No products available.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
+    <!-- <div class="product-list">
+        {% if products %}
+            {% for product in products %}
+            <div class="product-item">
+                
+                <img src="{{ product.image_url }}" alt="{{ product.name }}" class="product-image">
+                <h4>{{ product.name }}</h4>
+                <p>{{ product.description }}</p>
+                <p>Price: Rp{{ product.price }}</p>
+                <p>Rating: {{ product.rating }}/5.00</p>
+                <p>Date added: {{ product.time }}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No products available.</p>
+        {% endif %}
+    </div>
+</body> -->
+<!-- </html> -->
+
+
