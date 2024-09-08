@@ -8,7 +8,7 @@ def show_main(request):
         'npm' : '2306165774',
         'name': 'Jasmine Rakhaila',
         'class': 'PBP C',
-        'nama_toko' : 'Toko Kesayangan'
+        'store_name' : 'Toko Kesayangan'
     }
 
     return render(request, "main.html", context)

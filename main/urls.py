@@ -1,14 +1,9 @@
 from django.urls import path
 from main.views import show_main
+from main.views import product_list
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-# from django.urls import path
-# from main import views  # Ganti dengan path yang sesuai jika berbeda
-from django.urls import path
-from . import views
-
-
 
 app_name = 'main'
 
