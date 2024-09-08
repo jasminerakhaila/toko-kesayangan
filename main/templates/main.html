@@ -6,8 +6,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'templates/main.css' %}">
 </head>
 <body>
-    <!-- <h1>Welcome to Toko Kesayangan!</h1> -->
-
 <div class="info-container">
   <div class="info-item">
     <h5>NPM: {{ npm }}</h5>
@@ -20,12 +18,12 @@
   <div class="info-item">
     <h5>Class: {{ class }}</h5>
     <!-- <p>{{ class }}</p> -->
+    <h1>Welcome to {{nama_toko}}!</h1>
   </div>
 </div>
 </body>
 
 <body>
-    <h1>Welcome to Toko Kesayangan!</h1>
     <h2>Our Products</h2>
     <div class="product-container">
         {% if products %}
@@ -49,24 +47,5 @@
     </div>
 </body>
 </html>
-    <!-- <div class="product-list">
-        {% if products %}
-            {% for product in products %}
-            <div class="product-item">
-                
-                <img src="{{ product.image_url }}" alt="{{ product.name }}" class="product-image">
-                <h4>{{ product.name }}</h4>
-                <p>{{ product.description }}</p>
-                <p>Price: Rp{{ product.price }}</p>
-                <p>Rating: {{ product.rating }}/5.00</p>
-                <p>Date added: {{ product.time }}</p>
-            </div>
-            {% endfor %}
-        {% else %}
-            <p>No products available.</p>
-        {% endif %}
-    </div>
-</body> -->
-<!-- </html> -->
 
 
