@@ -1,10 +1,9 @@
+{% extends 'base.html' %}
+ {% block content %}
 {% load static %}
 
 <html>
 <head>
-    <!-- Menautkan file CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'templates/main.css' %}">
-</head>
 <body>
 <div class="info-container">
   <div class="info-item">
@@ -22,27 +21,37 @@
 
 <body>
     <h2>Our Products</h2>
-    <div class="product-container">
-        {% if products %}
-            {% for product in products %}
-                <div class="product-item">
-                    <h3>Product Name: {{ product.name }}</h3>
-                    <img src="https://i5.walmartimages.com/seo/Fresh-Gala-Apple-Each_f46d4fa7-6108-4450-a610-cc95a1ca28c5_3.38c2c5b2f003a0aafa618f3b4dc3cbbd.jpeg" 
-                    lt="Fresh Gala Apple" 
-                    style="width: 200px; height: auto;" 
-                    class="product-image">
+    {% if not product_entries %}
+    <p>Belum ada data product pada mental health tracker.</p>
+    {% else %}
+    <table>
+      <tr>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Description</th>
+        <!-- <th>Image</th> -->
+        <th>Rating</th>
+      </tr>
 
-                    <p>Description: {{ product.description }}</p>
-                    <p>Price: Rp{{ product.price }}</p>
-                    <p>Rating: {{ product.rating }} / 5</p>
-                    <p>Date added: {{ product.time }}</p>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p>No products available.</p>
-        {% endif %}
-    </div>
-</body>
-</html>
+      {% comment %} Berikut cara memperlihatkan data product di bawah baris ini 
+      {% endcomment %} 
+      {% for product_entry in product_entries %}
+      <tr>
+        <td>{{product_entry.name}}</td>
+        <td>{{product_entry.price}}</td>
+        <td>{{product_entry.description}}</td>
+        <!-- <td>{{product_entry.image_url}}</td> -->
+        <td>{{product_entry.rating}}</td>
+       
+      </tr>
+      {% endfor %}
+    </table>
+    {% endif %}
 
+<br />
 
+<a href="{% url 'main:create_product_entry' %}">
+  <button>Add New Product Entry</button>
+</a>
+{% endblock content %}
+  
