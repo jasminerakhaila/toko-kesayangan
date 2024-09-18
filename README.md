@@ -5,6 +5,8 @@ NPM : 2306165774
 Kelas : PBP C
 
 Tautan PWS : http://jasmine-rakhaila-tokokesayangan.pbp.cs.ui.ac.id/
+
+Tautan Screenshot Postman: https://drive.google.com/drive/folders/12DEFDWkQZ8ff9KvLDJd21JMN4BbMjxz_?usp=sharing
  
  ### Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
 Jawab: _Data delivery_ pada pengimplementasian sebuah platform merupakan fondasi untuk menjalankan fungsionalitas platform tersebut. _Data delivery_ memastikan bahwa informasi dari satu sistem dapat diteruskan ke sistem lain dengan cara yang terstruktur dan aman. Hal ini sangat penting untuk memastikan bahwa data yang relevan dapat diakses dan diproses oleh bagian sistem yang tepat pada waktu yang tepat dan efisien. Selain itu, _data delivery_ juga berperan penting dalam menjaga keamanan. Mereka memastikan bahwa data sensitif atau pribadi hanya dapat diakses oleh pihak yang berwenang. Dalam aspek operasional, _data delivery_ memastikan bahwa informasi yang diterima server dapat diproses lebih lanjut untuk berbagai tujuan seperti pengambilan keputusan, pembuatan laporan, hingga analitik. Dengan adanya _data delivery_ yang efektif, platform dapat memberikan layanan yang lebih responsif, aman, dan terintegrasi dengan baik, sehingga memberikan pengalaman pengguna yang optimal.
