@@ -15,9 +15,9 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-@login_required(login_url='/login/')
+@login_required(login_url='/login')
 def show_main(request):
-    product_entries = Product.objects.all()
+    product_entries = Product.objects.filter(user=request.user)
     context = {
         'npm' : '2306165774',
         'name': request.user.username,
