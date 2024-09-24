@@ -6,75 +6,53 @@ Kelas : PBP C
 
 Tautan PWS : http://jasmine-rakhaila-tokokesayangan.pbp.cs.ui.ac.id/
 
-Tautan Screenshot Postman: https://drive.google.com/drive/folders/12DEFDWkQZ8ff9KvLDJd21JMN4BbMjxz_?usp=sharing
- 
- ### Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
-Jawab: _Data delivery_ pada pengimplementasian sebuah platform merupakan fondasi untuk menjalankan fungsionalitas platform tersebut. _Data delivery_ memastikan bahwa informasi dari satu sistem dapat diteruskan ke sistem lain dengan cara yang terstruktur dan aman. Hal ini sangat penting untuk memastikan bahwa data yang relevan dapat diakses dan diproses oleh bagian sistem yang tepat pada waktu yang tepat dan efisien. Selain itu, _data delivery_ juga berperan penting dalam menjaga keamanan. Mereka memastikan bahwa data sensitif atau pribadi hanya dapat diakses oleh pihak yang berwenang. Dalam aspek operasional, _data delivery_ memastikan bahwa informasi yang diterima server dapat diproses lebih lanjut untuk berbagai tujuan seperti pengambilan keputusan, pembuatan laporan, hingga analitik. Dengan adanya _data delivery_ yang efektif, platform dapat memberikan layanan yang lebih responsif, aman, dan terintegrasi dengan baik, sehingga memberikan pengalaman pengguna yang optimal.
+# Tugas 4
 
-Sebagai kesimpulan, _data delivery_ merupakan komponen kunci yang mendukung aktivitas sebuah platform serta fungsi-fungsi penting dalam platform tersebut.
+### Apa perbedaan antara HttpResponseRedirect() dan redirect()
+Dalam pengembangan web dengan Django, HttpResponseRedirect() dan redirect() merupakan dua cara untuk mengirimkan respon yang mengarahkan pengguna ke URL lain. Meskipun keduanya memiliki tujuan yang sama, terdapat perbedaan penting dalam penggunaan dan kemudahan antara keduanya.
 
- ### Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
-Jawab: Jika dibandingkan, JSON menampilkan data dalam bentuk key-value. Sedangkan, XML merepresentasikan data dalam bentuk pola pohon seperti format HTML.
+HttpResponseRedirect() merupakan sebuah class dalam Django yang digunakan untuk mengirimkan HTTP response dengan status code 302, yang menyatakan "Found", atau dengan kata lain, ini adalah pengalihan sementara. Penggunaan HttpResponseRedirect() secara langsung memerlukan kita untuk menentukan URL tujuan sebagai string. Misalnya, HttpResponseRedirect('/path/') akan mengarahkan browser ke path yang ditentukan.
+
+Di sisi lain, redirect() adalah sebuah fungsi shortcut yang lebih tinggi level dan lebih fleksibel, yang juga tersedia di Django. Fungsi ini melakukan hal yang sama seperti HttpResponseRedirect(), tetapi dengan kemudahan tambahan. redirect() dapat menerima nama model, objek view, atau URL sebagai argumen. Misalnya, redirect('some-view-name'), redirect('http://example.com/'), atau redirect(objek). Fungsi ini secara otomatis akan menangani pembuatan URL jika diberikan objek atau nama view, yang membuatnya lebih nyaman untuk digunakan daripada HttpResponseRedirect().
+
+
+### Jelaskan cara kerja penghubungan model Product dengan User!
+Menghubungkan model Product dengan model User dalam Django biasanya dilakukan melalui pendekatan relasi database yang disebut ForeignKey. ForeignKey digunakan untuk membuat hubungan "banyak-ke-satu", yang berarti bahwa banyak instance dari model Product dapat dihubungkan dengan satu instance dari model User. Ini ideal untuk skenario seperti toko online di mana satu pengguna (penjual) dapat memiliki banyak produk.
+
+Untuk mengimplementasikan hubungan ini dalam Django, Anda akan menambahkan field ForeignKey ke dalam definisi model Product. Field ini menunjuk ke model User, yang umumnya adalah model pengguna yang sudah disediakan oleh Django (biasanya django.contrib.auth.models.User).
+
 ```
-JSON:
-{"guests":[
+from django.conf import settings
 
-  { "firstName":"John", "lastName":"Doe" },
-
-  { "firstName":"Nikki", "lastName":"Wolf" }
-
-]}
-
-XML:
-<guests>
-
-  <guest>
-
-    <firstName>John</firstName> <lastName>Doe</lastName>
-
-  </guest>
-
-  <guest>
-
-    <firstName>María</firstName> <lastName>García</lastName>
-
-  </guest>
-
-  <guest>
+class Product(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE') // baris yang ini
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    # field lainnya
 ```
-Apabila dilihat secara sekilas, struktur JSON lebih mudah dibaca dibandingkan dengan XML yang terlalu bertele-tele.
+on_delete=models.CASCADE menentukan bahwa produk harus dihapus jika pengguna terkait dihapus dari database, yang membantu menjaga integritas data. related_name='products' adalah nama yang digunakan untuk mengakses produk dari sisi pengguna, yang memungkinkan Anda mengambil semua produk yang terkait dengan pengguna tertentu dengan user.products. Dengan cara inilah hubungan antara pengguna dan produk ditetapkan.
 
-Berikut penjabaran dari perbandingan utama JSON dan XML:
-1. Penguraian: Ketika harus mengurai XML, diperlukan  pengurai XML yang sering kali memperlambat dan mempersulit proses. Sedangkan, mengurai JSON dapat menggunakan fungsi JavaScript standar. Fungsi ini lebih mudah diakses. Sehingga, kita dapat mengurai JSON dalam waktu yang lebih cepat daripada XML.
-2. Kemudahan Penggunaan: Ukuran file JSON lebih kecil dan transmisi datanya lebih cepat dibandingkan dengan XML. File yang dihasilkan XML lebih kompleks untuk ditulis dan dibaca sehingga memakan banyak ruang.
-3. Keamanan: 	
-JSON lebih aman dibandingkan dengan XML. Hal ini dikarenakan XML rentan terhadap injeksi entitas eksternal (XXE) dan DTD yang tidak terstruktur. Sehingga kita perlu memastikan untuk menonaktifkan fitur DTD saat transmisi.
+### Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.
 
-Sebagai kesimpulan, menurut saya JSON lebih baik dibandingkan XML dengan mempertimbangkan keamanan serta kemudahan dalam membaca file. Hal ini juga merupakan salah satu alasan JSON lebih populer karena lebih cepat dan efisien. Ditambah lagi, baris kode JSON yang jauh lebih sedikit daripada XML.
+Authentication dan authorization merupakan dua proses keamanan yang penting dalam aplikasi web, termasuk di framework Django. Authentication adalah proses memverifikasi identitas pengguna untuk memastikan bahwa mereka adalah siapa yang mereka klaim. Ini biasanya melibatkan memeriksa username dan password yang dimasukkan pengguna saat login. Authorization, di sisi lain, menentukan apa yang diizinkan untuk dilakukan oleh pengguna setelah mereka terverifikasi. Ini mencakup pemeriksaan hak akses pengguna terhadap sumber daya di aplikasi.
 
- ### Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?
-Jawab: Method is_valid() pada form Django digunakan untuk memvalidasi data yang diinput oleh pengguna melalui form. Hal ini digunakan untuk memastikan data tersebut sesuai aturan validasi sebelum disimpan atau diproses lebih lanjut. Method ini dibutuhkan untuk mencegah _logic error_ dalam aplikasi agar tidak salah tersimpan di database. Program akan menginformasikan pesan error ketika terjadi kegagalan validasi data. Sehingga, sebagai programmer akan mengetahui alasan adanya _invalid input data_ tersebut.
-
- ### Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
- Kita membutuhkan `csrf_token` di Django untuk melindungi aplikasi dari serangan CSRF (Cross-Site Request Forgery). Tanpa `csrf_token`, penyerang dapat membuat halaman palsu yang, jika diakses oleh pengguna yang sudah masuk, bisa mengirimkan permintaan tidak sah ke aplikasi dengan menggunakan kredensial pengguna tersebut. Ini bisa menyebabkan perubahan data atau tindakan lain yang tidak diinginkan pada aplikasi.
+Django mengimplementasikan kedua konsep ini dengan modul django.contrib.auth, yang menangani pengguna, grup, dan session. Untuk authentication, Django menggunakan sesi dan cookie untuk mempertahankan status login. Untuk authorization, Django menyediakan sistem hak akses yang dapat dikustomisasi, dengan "decorators" seperti login_required dan permission_required yang mengontrol akses ke view berdasarkan hak akses pengguna.
 
 
- ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
- 1. Membuat Input Form untuk Menambahkan Objek Model
-Langkah pertama adalah membuat form untuk memasukkan data baru ke model yang ada. Saya akan membuat ModelForm di Django yang terhubung dengan model Product. Hal ini dilakukan dengan mendefinisikan form baru di forms.py, lalu mendefinisikan sebuah view di views.py untuk memproses form tersebut. View tersebut akan menampilkan form saat pengguna mengakses halaman dan akan memproses form jika pengguna mengirimkannya. Setelah itu, saya akan menambahkan template HTML yang berisi form, dan pada view-nya, jika data valid (dicek menggunakan form.is_valid()), maka data akan disimpan ke database menggunakan form.save().
+### Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?
 
-2. Menambahkan Fungsi View untuk Menampilkan Data dalam Format XML dan JSON
-Setelah form selesai dibuat, saya akan menambahkan fungsi view untuk menampilkan data dari model Product dalam format XML dan JSON. Untuk melakukan ini, saya akan menggunakan modul serialize dari django.core.serializers yang memungkinkan data model dikonversi menjadi format XML atau JSON. View ini akan mengambil semua data produk menggunakan Product.objects.all(), lalu menggunakan serialize() untuk mengubah data menjadi XML atau JSON. Hasilnya kemudian dikirim kembali sebagai HttpResponse dengan content type yang sesuai (application/xml atau application/json).
+Django menggunakan cookies untuk mengingat pengguna yang telah login, yang memungkinkan pengguna untuk tetap login bahkan ketika mereka menutup dan membuka kembali browser mereka. Cookies adalah file kecil yang disimpan oleh browser di komputer pengguna dan berisi informasi tertentu seperti ID sesi. Ketika pengguna mengunjungi situs, Django memeriksa cookie ini untuk menemukan ID sesi yang valid dan, jika ditemukan, sesi pengguna dipulihkan tanpa perlu login kembali.
 
-3. Menambahkan Fungsi View untuk Menampilkan Data Berdasarkan ID dalam Format XML dan JSON
-Langkah berikutnya adalah menambahkan view tambahan untuk menampilkan data berdasarkan ID. Saya akan membuat view yang mirip dengan yang ada di langkah sebelumnya, tetapi kali ini mengambil data berdasarkan ID tertentu menggunakan Product.objects.get(id=<id>). Data yang diambil kemudian di-serialize menjadi XML atau JSON dan dikirim sebagai respons. Jika data dengan ID tersebut tidak ditemukan, saya akan mengembalikan status respons 404.
+Selain digunakan untuk autentikasi, cookies juga memiliki kegunaan lain dalam pengembangan web, seperti menyimpan preferensi pengguna, mengelola keranjang belanja di situs e-commerce, dan melacak perilaku pengguna untuk analitik. Cookies memungkinkan situs web untuk menyediakan pengalaman yang lebih personal dan responsif kepada penggunanya.
 
-4. Membuat Routing URL untuk Setiap View
-Langkah terakhir adalah menghubungkan semua view ke URL yang sesuai. Saya akan membuka file urls.py dan menambahkan routing baru untuk setiap view. Misalnya, URL /products/xml/ untuk menampilkan semua produk dalam format XML, dan /products/json/<id>/ untuk menampilkan produk berdasarkan ID dalam format JSON. Saya akan memastikan setiap URL memanggil view yang tepat, menggunakan pola seperti path('products/xml/', views.product_xml) atau path('products/json/<int:id>/', views.product_json_by_id).
+Namun, tidak semua cookies aman untuk digunakan karena mereka bisa menjadi sasaran untuk serangan keamanan seperti Cross-Site Scripting (XSS) dan Cross-Site Request Forgery (CSRF). Cookies yang tidak dienkripsi atau tidak ditandai dengan atribut keamanan seperti HttpOnly atau Secure dapat lebih mudah disalahgunakan oleh penyerang. Oleh karena itu, penting untuk menggunakan cookies secara hati-hati dan mengkonfigurasi atribut keamanan yang sesuai pada cookies yang sensitif untuk memastikan keamanan data pengguna.
 
-Dengan langkah-langkah ini, saya dapat memastikan platform dapat menerima input data baru melalui form, serta menampilkan data dalam format XML dan JSON, baik secara keseluruhan maupun berdasarkan ID, sambil tetap menjaga struktur URL yang teratur.
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 
+Untuk mengimplementasikan checklist keamanan dalam penggunaan cookies pada aplikasi Django, langkah pertama adalah mengkonfigurasi aplikasi agar hanya mengirim cookies melalui HTTPS. Ini dilakukan dengan menetapkan `SESSION_COOKIE_SECURE` dan `CSRF_COOKIE_SECURE` menjadi `True` dalam file `settings.py` Django. Pengaturan ini memastikan bahwa baik cookie sesi maupun cookie CSRF hanya dikirim melalui koneksi yang aman, menghindari potensi pencurian data melalui man-in-the-middle attacks pada koneksi yang tidak terenkripsi.
 
- Referensi:
- https://docs.djangoproject.com/id/5.1/topics/forms/modelforms/
- https://aws.amazon.com/id/compare/the-difference-between-json-xml/
+Langkah kedua adalah menambahkan atribut `HttpOnly` ke cookie sesi, yang mencegah cookie diakses melalui JavaScript. Ini dilakukan dengan mengatur `SESSION_COOKIE_HTTPONLY` menjadi `True` dalam `settings.py`. Atribut `HttpOnly` membantu melindungi aplikasi Anda dari serangan cross-site scripting (XSS), yang dapat memanfaatkan akses ke cookies melalui skrip jahat yang diinjeksi ke dalam halaman web.
+
+Sebagai tambahan, sangat disarankan untuk menggunakan middleware keamanan Django yang menyediakan fitur seperti kebijakan keamanan konten (CSP), yang membatasi sumber daya yang dapat dimuat oleh halaman web. Middleware seperti `django-csp` dapat ditambahkan untuk membantu mencegah serangan XSS dengan membatasi sumber dari mana konten dapat dijalankan atau dimuat.
+
+Terakhir, pastikan untuk mengupdate dan memelihara versi Django dan library yang digunakan agar tetap terkini. Django secara berkala memperbarui patch keamanan dan pemeliharaan yang dapat melindungi aplikasi Anda dari kerentanan baru yang ditemukan. Menerapkan praktik-praktik ini secara konsisten akan meningkatkan keamanan aplikasi Django Anda, menjaga integritas data pengguna dan sesi dari serangan cyber.
