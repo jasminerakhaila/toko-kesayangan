@@ -6,53 +6,60 @@ Kelas : PBP C
 
 Tautan PWS : http://jasmine-rakhaila-tokokesayangan.pbp.cs.ui.ac.id/
 
-# Tugas 4
+# Tugas 5
 
-### Apa perbedaan antara HttpResponseRedirect() dan redirect()
-Dalam pengembangan web dengan Django, HttpResponseRedirect() dan redirect() merupakan dua cara untuk mengirimkan respon yang mengarahkan pengguna ke URL lain. Meskipun keduanya memiliki tujuan yang sama, terdapat perbedaan penting dalam penggunaan dan kemudahan antara keduanya.
+### Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
 
-HttpResponseRedirect() merupakan sebuah class dalam Django yang digunakan untuk mengirimkan HTTP response dengan status code 302, yang menyatakan "Found", atau dengan kata lain, ini adalah pengalihan sementara. Penggunaan HttpResponseRedirect() secara langsung memerlukan kita untuk menentukan URL tujuan sebagai string. Misalnya, HttpResponseRedirect('/path/') akan mengarahkan browser ke path yang ditentukan.
+Urutan prioritas dalam pengambilan CSS selector sangat penting dalam menentukan gaya yang akan diterapkan pada elemen HTML. Prioritas ini ditentukan berdasarkan beberapa faktor seperti kekhususan (specificity), keberadaan inline styles, dan urutan kode CSS itu sendiri. Berikut adalah urutan prioritas pengambilan CSS selector yang umum digunakan:
 
-Di sisi lain, redirect() adalah sebuah fungsi shortcut yang lebih tinggi level dan lebih fleksibel, yang juga tersedia di Django. Fungsi ini melakukan hal yang sama seperti HttpResponseRedirect(), tetapi dengan kemudahan tambahan. redirect() dapat menerima nama model, objek view, atau URL sebagai argumen. Misalnya, redirect('some-view-name'), redirect('http://example.com/'), atau redirect(objek). Fungsi ini secara otomatis akan menangani pembuatan URL jika diberikan objek atau nama view, yang membuatnya lebih nyaman untuk digunakan daripada HttpResponseRedirect().
+1. Inline Styles: Gaya yang didefinisikan langsung dalam atribut style elemen HTML memiliki prioritas tertinggi. Ini karena inline styles dianggap paling spesifik karena secara langsung terikat dengan elemen tersebut.
+2. ID Selectors: Selector yang menggunakan ID (#id) memiliki prioritas yang lebih tinggi berikutnya. ID unik untuk setiap elemen pada halaman, sehingga definisi gaya yang menggunakan ID sangat spesifik.
 
+3. Class, Pseudo-class, dan Attribute Selectors: Selector yang menggunakan class (.class), pseudo-class (:hover, :focus, dll.), dan attribute selectors ([type="text"]) memiliki prioritas lebih rendah dari ID selectors tetapi lebih tinggi dari tag selectors. Selector ini cukup spesifik dan sering digunakan untuk menentukan gaya berdasarkan kelompok elemen atau keadaan elemen.
 
-### Jelaskan cara kerja penghubungan model Product dengan User!
-Menghubungkan model Product dengan model User dalam Django biasanya dilakukan melalui pendekatan relasi database yang disebut ForeignKey. ForeignKey digunakan untuk membuat hubungan "banyak-ke-satu", yang berarti bahwa banyak instance dari model Product dapat dihubungkan dengan satu instance dari model User. Ini ideal untuk skenario seperti toko online di mana satu pengguna (penjual) dapat memiliki banyak produk.
+4. Tag (Type) Selectors: Selector yang menggunakan nama tag (div, p, a, dll.) memiliki prioritas yang lebih rendah karena merupakan gaya yang paling umum dan dapat diterapkan ke banyak elemen sekaligus.
 
-Untuk mengimplementasikan hubungan ini dalam Django, Anda akan menambahkan field ForeignKey ke dalam definisi model Product. Field ini menunjuk ke model User, yang umumnya adalah model pengguna yang sudah disediakan oleh Django (biasanya django.contrib.auth.models.User).
+5. Universal Selector: Universal selector (*), yang berlaku untuk semua elemen, memiliki prioritas paling rendah. Selector ini sering digunakan untuk mengatur nilai default dari properti tertentu sebelum selektor yang lebih spesifik diterapkan.
 
-```
-from django.conf import settings
+6. (!important): Properti yang menggunakan deklarasi !important akan memiliki prioritas lebih tinggi dari selektor biasa, meskipun ini sebaiknya digunakan dengan hati-hati karena bisa membuat CSS menjadi sulit untuk dipelihara dan debug.
 
-class Product(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE') // baris yang ini
-    name = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    # field lainnya
-```
-on_delete=models.CASCADE menentukan bahwa produk harus dihapus jika pengguna terkait dihapus dari database, yang membantu menjaga integritas data. related_name='products' adalah nama yang digunakan untuk mengakses produk dari sisi pengguna, yang memungkinkan Anda mengambil semua produk yang terkait dengan pengguna tertentu dengan user.products. Dengan cara inilah hubungan antara pengguna dan produk ditetapkan.
+### Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
 
-### Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.
+Responsive design merupakan konsep penting dalam pengembangan aplikasi web karena memastikan bahwa sebuah situs web dapat diakses dan ditampilkan dengan baik di berbagai perangkat dan ukuran layar. Dengan bertambahnya penggunaan perangkat mobile untuk mengakses internet, situs web yang responsif menjadi krusial untuk menjangkau audiens yang lebih luas. 
 
-Authentication dan authorization merupakan dua proses keamanan yang penting dalam aplikasi web, termasuk di framework Django. Authentication adalah proses memverifikasi identitas pengguna untuk memastikan bahwa mereka adalah siapa yang mereka klaim. Ini biasanya melibatkan memeriksa username dan password yang dimasukkan pengguna saat login. Authorization, di sisi lain, menentukan apa yang diizinkan untuk dilakukan oleh pengguna setelah mereka terverifikasi. Ini mencakup pemeriksaan hak akses pengguna terhadap sumber daya di aplikasi.
+Twitter adalah contoh dari aplikasi web yang telah menerapkan responsive design. Ketika diakses melalui berbagai perangkat agar tetap fungsional dan estetis. Layout responsif ini memastikan bahwa semua elemen seperti feed, tombol, dan menu navigasi dapat diakses dengan mudah dan tampak harmonis di berbagai ukuran layar.
 
-Django mengimplementasikan kedua konsep ini dengan modul django.contrib.auth, yang menangani pengguna, grup, dan session. Untuk authentication, Django menggunakan sesi dan cookie untuk mempertahankan status login. Untuk authorization, Django menyediakan sistem hak akses yang dapat dikustomisasi, dengan "decorators" seperti login_required dan permission_required yang mengontrol akses ke view berdasarkan hak akses pengguna.
+Contoh website yang belum menerapkan responsive design adalah siasisten.cs.ui.ac.id. Website ini belum menyediakan tampilan untuk mobile device, melainkan hanya desktop view. 
 
 
-### Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?
+### Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
 
-Django menggunakan cookies untuk mengingat pengguna yang telah login, yang memungkinkan pengguna untuk tetap login bahkan ketika mereka menutup dan membuka kembali browser mereka. Cookies adalah file kecil yang disimpan oleh browser di komputer pengguna dan berisi informasi tertentu seperti ID sesi. Ketika pengguna mengunjungi situs, Django memeriksa cookie ini untuk menemukan ID sesi yang valid dan, jika ditemukan, sesi pengguna dipulihkan tanpa perlu login kembali.
+Margin, border, dan padding adalah tiga properti penting dalam CSS yang digunakan untuk mengatur tata letak elemen di halaman web. Margin adalah ruang kosong di luar elemen, yang berfungsi untuk memberikan jarak antara elemen dengan elemen lain di sekitarnya. Margin tidak mempengaruhi ukuran elemen itu sendiri. Implementasinya sederhana, cukup menggunakan properti margin di CSS, seperti margin: 20px; untuk memberikan jarak 20 piksel di semua sisi elemen.
 
-Selain digunakan untuk autentikasi, cookies juga memiliki kegunaan lain dalam pengembangan web, seperti menyimpan preferensi pengguna, mengelola keranjang belanja di situs e-commerce, dan melacak perilaku pengguna untuk analitik. Cookies memungkinkan situs web untuk menyediakan pengalaman yang lebih personal dan responsif kepada penggunanya.
+Border adalah garis pembatas yang mengelilingi elemen dan berada di antara margin dan padding. Border dapat diatur ketebalannya, jenis garisnya, serta warnanya, misalnya dengan kode border: 2px solid black; yang membuat garis pembatas berukuran 2 piksel, tipe solid, dan berwarna hitam. Border memberikan efek visual pada elemen tanpa mempengaruhi margin atau padding, tetapi akan menambah ukuran elemen.
 
-Namun, tidak semua cookies aman untuk digunakan karena mereka bisa menjadi sasaran untuk serangan keamanan seperti Cross-Site Scripting (XSS) dan Cross-Site Request Forgery (CSRF). Cookies yang tidak dienkripsi atau tidak ditandai dengan atribut keamanan seperti HttpOnly atau Secure dapat lebih mudah disalahgunakan oleh penyerang. Oleh karena itu, penting untuk menggunakan cookies secara hati-hati dan mengkonfigurasi atribut keamanan yang sesuai pada cookies yang sensitif untuk memastikan keamanan data pengguna.
+Padding adalah ruang di dalam elemen, antara konten dan border elemen. Padding menambah ruang internal sehingga konten tidak terlalu menempel pada border. Misalnya, dengan padding: 10px; akan menambahkan ruang 10 piksel di dalam elemen di semua sisinya. Berbeda dengan margin, padding menambah ukuran keseluruhan elemen karena menjadi bagian dari area konten yang diperluas.
 
-### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+### Jelaskan konsep flex box dan grid layout beserta kegunaannya!
 
-Untuk mengimplementasikan checklist keamanan dalam penggunaan cookies pada aplikasi Django, langkah pertama adalah mengkonfigurasi aplikasi agar hanya mengirim cookies melalui HTTPS. Ini dilakukan dengan menetapkan `SESSION_COOKIE_SECURE` dan `CSRF_COOKIE_SECURE` menjadi `True` dalam file `settings.py` Django. Pengaturan ini memastikan bahwa baik cookie sesi maupun cookie CSRF hanya dikirim melalui koneksi yang aman, menghindari potensi pencurian data melalui man-in-the-middle attacks pada koneksi yang tidak terenkripsi.
+Flexbox dan Grid Layout adalah dua sistem tata letak dalam CSS yang digunakan untuk menyusun elemen secara responsif dan fleksibel. Flexbox (Flexible Box) bekerja secara satu dimensi, baik secara horizontal (row) maupun vertikal (column), dan sangat berguna untuk mengatur elemen dalam satu baris atau kolom. Dengan Flexbox, elemen dapat secara otomatis menyesuaikan ukuran atau posisi berdasarkan ruang yang tersedia, misalnya dengan properti seperti justify-content, align-items, dan flex-wrap. Ini sangat bermanfaat untuk tata letak yang sederhana dan dinamis, seperti navigasi atau susunan kartu produk.
 
-Langkah kedua adalah menambahkan atribut `HttpOnly` ke cookie sesi, yang mencegah cookie diakses melalui JavaScript. Ini dilakukan dengan mengatur `SESSION_COOKIE_HTTPONLY` menjadi `True` dalam `settings.py`. Atribut `HttpOnly` membantu melindungi aplikasi Anda dari serangan cross-site scripting (XSS), yang dapat memanfaatkan akses ke cookies melalui skrip jahat yang diinjeksi ke dalam halaman web.
+Di sisi lain, Grid Layout bekerja secara dua dimensi, memungkinkan pengaturan elemen secara simultan dalam baris (rows) dan kolom (columns). Grid lebih cocok digunakan untuk tata letak yang lebih kompleks seperti halaman utama atau layout blog, di mana Anda dapat mendefinisikan ukuran kolom dan baris secara presisi dengan properti seperti grid-template-rows dan grid-template-columns. Flexbox lebih baik untuk elemen tunggal atau satu dimensi, sedangkan Grid lebih unggul dalam pengaturan tata letak yang lebih komprehensif dan simetris.
 
-Sebagai tambahan, sangat disarankan untuk menggunakan middleware keamanan Django yang menyediakan fitur seperti kebijakan keamanan konten (CSP), yang membatasi sumber daya yang dapat dimuat oleh halaman web. Middleware seperti `django-csp` dapat ditambahkan untuk membantu mencegah serangan XSS dengan membatasi sumber dari mana konten dapat dijalankan atau dimuat.
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
 
-Terakhir, pastikan untuk mengupdate dan memelihara versi Django dan library yang digunakan agar tetap terkini. Django secara berkala memperbarui patch keamanan dan pemeliharaan yang dapat melindungi aplikasi Anda dari kerentanan baru yang ditemukan. Menerapkan praktik-praktik ini secara konsisten akan meningkatkan keamanan aplikasi Django Anda, menjaga integritas data pengguna dan sesi dari serangan cyber.
+Untuk memaparkan secara detail bagaimana saya telah mengimplementasikan checklist pada proyek pengembangan web, berikut adalah langkah-langkah yang saya lakukan:
+
+1. Pengembangan Fungsi Backend:
+- Untuk menghapus produk, saya menambahkan sebuah route pada backend yang menerima permintaan DELETE. Fungsi ini bertugas menghapus produk berdasarkan ID yang diterima dari front-end. Saya memastikan bahwa operasi ini hanya dapat dilakukan oleh pengguna yang terotentikasi dan berhak atas aksi tersebut.
+- Untuk mengedit produk, saya membuat route yang menerima permintaan POST. Fungsi ini mengambil data yang diinputkan melalui form edit produk dan melakukan pembaruan pada database sesuai dengan ID produk. Saya menggunakan validasi data untuk memastikan semua input valid sebelum memperbarui database.
+
+2. Kustomisasi Desain dengan CSS/Framework CSS:
+- Halaman Login dan Register: Saya mendesain ulang halaman ini untuk meningkatkan pengalaman pengguna dengan menggunakan Bootstrap. Saya memilih formulir yang lebih modern dan interaktif, serta menambahkan efek visual seperti shadow dan transition untuk membuat tampilan lebih dinamis.
+
+- Halaman Tambah Produk: Saya menyertakan elemen form yang diperlukan dan menggunakan Tailwind CSS untuk styling. Setiap elemen form didesain untuk konsisten dan responsif, memastikan bahwa halaman ini dapat diakses dengan baik di berbagai perangkat.
+
+3. Desain Halaman Daftar Produk: Untuk kasus ketika belum ada produk yang tersimpan, saya menyiapkan sebuah layout yang menampilkan gambar dan pesan yang estetik menggunakan CSS. Gambar dan teks tersebut memberitahu pengguna bahwa belum ada produk yang tersimpan.
+Saat produk sudah tersimpan, saya menggunakan card untuk menampilkan produk. Saya memastikan bahwa setiap card dirancang untuk menonjolkan informasi penting dan menyediakan dua tombol fungsi—edit dan hapus—yang memudahkan pengelolaan produk.
+
+4. Pembuatan Navbar yang Responsif: Saya merancang navbar yang responsif menggunakan Flexbox dan media queries untuk memastikan bahwa navigasi tetap fungsional dan estetik di berbagai ukuran layar. Navbar ini termasuk link ke halaman utama aplikasi seperti Beranda, Tentang, Daftar Produk, Registrasi, dan Login.
