@@ -1,0 +1,30 @@
+<div class="bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden transform transition duration-300 hover:scale-105">
+  <div class="bg-gradient-to-r from-purple-800 to-blue-600 p-4">
+      <h3 class="text-xl text-white font-bold">{{ product_entry.name }}</h3>
+      <p class="text-sm text-blue-200">{{ product_entry.time }}</p>
+  </div>
+  <div class="p-4">
+      <h4 class="text-gray-800 font-semibold mb-2">Description</h4>
+      <p class="text-gray-600 mb-4">{{ product_entry.description }}</p>
+      <div class="flex items-center justify-between">
+          <div class="flex items-center">
+              <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0L12.9 8.6l6.767.98c1.02.148 1.423 1.398.687 2.125l-4.898 4.774 1.157 6.73c.177 1.02-.894 1.79-1.81 1.311L10 18.347l-6.043 3.173c-.916.479-1.987-.291-1.81-1.311l1.157-6.73-4.898-4.774c-.736-.727-.333-1.977.687-2.125l6.767-.98 2.949-5.673z"></path>
+              </svg>
+              <span class="ml-2 text-gray-700 font-semibold">{{ product_entry.rating }} / 10</span>
+          </div>
+          <div class="flex space-x-2">
+              <a href="{% url 'main:edit_product' product_entry.pk %}" class="text-white bg-green-500 hover:bg-green-600 rounded-full p-2 transition-colors duration-200">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                  </svg>
+              </a>
+              <a href="{% url 'main:delete_product' product_entry.pk %}" class="text-white bg-red-500 hover:bg-red-600 rounded-full p-2 transition-colors duration-200">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+              </a>
+          </div>
+      </div>
+  </div>
+</div>

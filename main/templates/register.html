@@ -5,28 +5,54 @@
 {% endblock meta %}
 
 {% block content %}
-
-<div class="login">
-  <h1>Register</h1>
-
-  <form method="POST">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-      <tr>
-        <td></td>
-        <td><input type="submit" name="submit" value="Daftar" /></td>
-      </tr>
-    </table>
-  </form>
-
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-lg shadow-lg">
+    <div>
+      <h2 class="mt-6 text-center text-4xl font-extrabold text-gray-900">
+        Create your account
+      </h2>
+      <p class="text-center text-sm text-gray-600 mt-2">
+        Join us and unlock all the features!
+      </p>
+    </div>
+    <form class="mt-8 space-y-6" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="remember" value="true">
+      <div class="rounded-md shadow-sm space-y-4">
+        {% for field in form %}
+          <div>
+            <input id="{{ field.id_for_label }}" name="{{ field.name }}" type="text" required class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-pink-500 focus:border-pink-500 focus:z-10 sm:text-sm" placeholder="{{ field.label }}">
+            {% if field.errors %}
+              {% for error in field.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      <div>
+        <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-lg font-medium rounded-md text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-transform transform hover:scale-105">
+          Register
+        </button>
+      </div>
+    </form>
+    {% if messages %}
+    <div class="mt-4">
+      {% for message in messages %}
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">{{ message }}</strong>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <div class="text-center mt-6">
+      <p class="text-sm text-gray-600">
+        Already have an account?
+        <a href="{% url 'main:login' %}" class="font-medium text-indigo-600 hover:text-pink-500 transition-colors duration-300">
+          Login here
+        </a>
+      </p>
+    </div>
+  </div>
 </div>
-
 {% endblock content %}
