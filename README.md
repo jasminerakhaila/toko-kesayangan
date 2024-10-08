@@ -6,60 +6,47 @@ Kelas : PBP C
 
 Tautan PWS : http://jasmine-rakhaila-tokokesayangan.pbp.cs.ui.ac.id/
 
-# Tugas 5
+# Tugas 6
 
-### Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+### Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+JavaScript memungkinkan aplikasi web menjadi interaktif dan dinamis, memberikan respons instan terhadap aksi pengguna tanpa perlu memuat ulang halaman. Dengan kemampuan asinkron seperti AJAX, JavaScript meningkatkan kecepatan dan efisiensi, memungkinkan komunikasi dengan server di latar belakang. Selain itu, JavaScript mendukung berbagai platform, memiliki integrasi yang mudah dengan HTML/CSS, dan didukung oleh banyak library dan framework untuk mempermudah pengembangan.
 
-Urutan prioritas dalam pengambilan CSS selector sangat penting dalam menentukan gaya yang akan diterapkan pada elemen HTML. Prioritas ini ditentukan berdasarkan beberapa faktor seperti kekhususan (specificity), keberadaan inline styles, dan urutan kode CSS itu sendiri. Berikut adalah urutan prioritas pengambilan CSS selector yang umum digunakan:
+### Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?
+Fungsi await dalam JavaScript digunakan untuk menunggu penyelesaian Promise, seperti yang dikembalikan oleh fetch(). Ketika menggunakan await dengan fetch(), eksekusi kode sementara dihentikan sampai Promise tersebut selesai, yang memungkinkan data yang di-fetch dapat digunakan seolah-olah operasi tersebut bersifat sinkron.
 
-1. Inline Styles: Gaya yang didefinisikan langsung dalam atribut style elemen HTML memiliki prioritas tertinggi. Ini karena inline styles dianggap paling spesifik karena secara langsung terikat dengan elemen tersebut.
-2. ID Selectors: Selector yang menggunakan ID (#id) memiliki prioritas yang lebih tinggi berikutnya. ID unik untuk setiap elemen pada halaman, sehingga definisi gaya yang menggunakan ID sangat spesifik.
+Jika kita tidak menggunakan await dengan fetch(), kode akan terus berjalan tanpa menunggu Promise dari fetch() terselesaikan. Hal ini berarti data yang diperlukan dari hasil fetch mungkin belum tersedia saat kita mencoba menggunakannya, yang bisa menyebabkan bugs atau kesalahan dalam mengelola state aplikasi karena kode akan berjalan sebelum data benar-benar siap.
 
-3. Class, Pseudo-class, dan Attribute Selectors: Selector yang menggunakan class (.class), pseudo-class (:hover, :focus, dll.), dan attribute selectors ([type="text"]) memiliki prioritas lebih rendah dari ID selectors tetapi lebih tinggi dari tag selectors. Selector ini cukup spesifik dan sering digunakan untuk menentukan gaya berdasarkan kelompok elemen atau keadaan elemen.
+### Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang akan digunakan untuk AJAX POST?
+Decorator csrf_exempt digunakan pada view AJAX POST di Django untuk menonaktifkan pemeriksaan token CSRF. Hal ini biasanya dilakukan karena:
 
-4. Tag (Type) Selectors: Selector yang menggunakan nama tag (div, p, a, dll.) memiliki prioritas yang lebih rendah karena merupakan gaya yang paling umum dan dapat diterapkan ke banyak elemen sekaligus.
+1. Integrasi Sistem Lain: Jika AJAX POST berasal dari sumber atau domain yang tidak bisa mengirim token CSRF.
+2. Kemudahan Pengembangan: Untuk menghindari pengelolaan token CSRF selama pengembangan awal.
+3. API untuk Non-Browser Client: Ketika endpoint dimaksudkan untuk digunakan oleh klien non-browser yang tidak memerlukan proteksi CSRF.
 
-5. Universal Selector: Universal selector (*), yang berlaku untuk semua elemen, memiliki prioritas paling rendah. Selector ini sering digunakan untuk mengatur nilai default dari properti tertentu sebelum selektor yang lebih spesifik diterapkan.
-
-6. (!important): Properti yang menggunakan deklarasi !important akan memiliki prioritas lebih tinggi dari selektor biasa, meskipun ini sebaiknya digunakan dengan hati-hati karena bisa membuat CSS menjadi sulit untuk dipelihara dan debug.
-
-### Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
-
-Responsive design merupakan konsep penting dalam pengembangan aplikasi web karena memastikan bahwa sebuah situs web dapat diakses dan ditampilkan dengan baik di berbagai perangkat dan ukuran layar. Dengan bertambahnya penggunaan perangkat mobile untuk mengakses internet, situs web yang responsif menjadi krusial untuk menjangkau audiens yang lebih luas. 
-
-Twitter adalah contoh dari aplikasi web yang telah menerapkan responsive design. Ketika diakses melalui berbagai perangkat agar tetap fungsional dan estetis. Layout responsif ini memastikan bahwa semua elemen seperti feed, tombol, dan menu navigasi dapat diakses dengan mudah dan tampak harmonis di berbagai ukuran layar.
-
-Contoh website yang belum menerapkan responsive design adalah siasisten.cs.ui.ac.id. Website ini belum menyediakan tampilan untuk mobile device, melainkan hanya desktop view. 
+Penggunaan csrf_exempt harus hati-hati karena mengurangi keamanan aplikasi terhadap serangan CSRF.
 
 
-### Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
-
-Margin, border, dan padding adalah tiga properti penting dalam CSS yang digunakan untuk mengatur tata letak elemen di halaman web. Margin adalah ruang kosong di luar elemen, yang berfungsi untuk memberikan jarak antara elemen dengan elemen lain di sekitarnya. Margin tidak mempengaruhi ukuran elemen itu sendiri. Implementasinya sederhana, cukup menggunakan properti margin di CSS, seperti margin: 20px; untuk memberikan jarak 20 piksel di semua sisi elemen.
-
-Border adalah garis pembatas yang mengelilingi elemen dan berada di antara margin dan padding. Border dapat diatur ketebalannya, jenis garisnya, serta warnanya, misalnya dengan kode border: 2px solid black; yang membuat garis pembatas berukuran 2 piksel, tipe solid, dan berwarna hitam. Border memberikan efek visual pada elemen tanpa mempengaruhi margin atau padding, tetapi akan menambah ukuran elemen.
-
-Padding adalah ruang di dalam elemen, antara konten dan border elemen. Padding menambah ruang internal sehingga konten tidak terlalu menempel pada border. Misalnya, dengan padding: 10px; akan menambahkan ruang 10 piksel di dalam elemen di semua sisinya. Berbeda dengan margin, padding menambah ukuran keseluruhan elemen karena menjadi bagian dari area konten yang diperluas.
-
-### Jelaskan konsep flex box dan grid layout beserta kegunaannya!
-
-Flexbox dan Grid Layout adalah dua sistem tata letak dalam CSS yang digunakan untuk menyusun elemen secara responsif dan fleksibel. Flexbox (Flexible Box) bekerja secara satu dimensi, baik secara horizontal (row) maupun vertikal (column), dan sangat berguna untuk mengatur elemen dalam satu baris atau kolom. Dengan Flexbox, elemen dapat secara otomatis menyesuaikan ukuran atau posisi berdasarkan ruang yang tersedia, misalnya dengan properti seperti justify-content, align-items, dan flex-wrap. Ini sangat bermanfaat untuk tata letak yang sederhana dan dinamis, seperti navigasi atau susunan kartu produk.
-
-Di sisi lain, Grid Layout bekerja secara dua dimensi, memungkinkan pengaturan elemen secara simultan dalam baris (rows) dan kolom (columns). Grid lebih cocok digunakan untuk tata letak yang lebih kompleks seperti halaman utama atau layout blog, di mana Anda dapat mendefinisikan ukuran kolom dan baris secara presisi dengan properti seperti grid-template-rows dan grid-template-columns. Flexbox lebih baik untuk elemen tunggal atau satu dimensi, sedangkan Grid lebih unggul dalam pengaturan tata letak yang lebih komprehensif dan simetris.
+### Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?
+Pembersihan data di backend menjadi sangat penting karena bertindak sebagai lapisan keamanan tambahan. Apabila ada celah atau kelemahan pada sisi frontend, seperti pengguna yang sengaja melewati validasi frontend atau menggunakan script untuk mengirimkan data secara langsung ke server, maka pembersihan dan validasi di backend akan menghalangi data yang tidak sesuai atau berbahaya tersebut dari masuk ke sistem. Ini membantu dalam mencegah berbagai serangan seperti SQL Injection atau Cross-Site Scripting yang bisa terjadi jika input dari pengguna tidak divalidasi atau dibersihkan secara efektif. Selain itu, proses ini juga memastikan konsistensi data yang diterima dari berbagai sumber dan pengguna yang berbeda.
 
 ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
 
-Untuk memaparkan secara detail bagaimana saya telah mengimplementasikan checklist pada proyek pengembangan web, berikut adalah langkah-langkah yang saya lakukan:
+1. Membuat Endpoint untuk AJAX GET:
+Saya telah membuat view di Django yang bertanggung jawab hanya untuk menampilkan data produk pengguna yang telah login, menggunakan sesi pengguna yang aktif sebagai filter.
 
-1. Pengembangan Fungsi Backend:
-- Untuk menghapus produk, saya menambahkan sebuah route pada backend yang menerima permintaan DELETE. Fungsi ini bertugas menghapus produk berdasarkan ID yang diterima dari front-end. Saya memastikan bahwa operasi ini hanya dapat dilakukan oleh pengguna yang terotentikasi dan berhak atas aksi tersebut.
-- Untuk mengedit produk, saya membuat route yang menerima permintaan POST. Fungsi ini mengambil data yang diinputkan melalui form edit produk dan melakukan pembaruan pada database sesuai dengan ID produk. Saya menggunakan validasi data untuk memastikan semua input valid sebelum memperbarui database.
+2. Mengambil Data Produk dengan AJAX GET: 
+Saya menggunakan JavaScript untuk memanggil data produk dari endpoint yang dibuat. Fungsi fetch digunakan untuk mendapatkan data secara asinkron, yang kemudian saya tampilkan di halaman tanpa perlu memuat ulang.
 
-2. Kustomisasi Desain dengan CSS/Framework CSS:
-- Halaman Login dan Register: Saya mendesain ulang halaman ini untuk meningkatkan pengalaman pengguna dengan menggunakan Bootstrap. Saya memilih formulir yang lebih modern dan interaktif, serta menambahkan efek visual seperti shadow dan transition untuk membuat tampilan lebih dinamis.
+3. Menambahkan Produk dengan AJAX POST: 
+- Saya menyiapkan sebuah modal yang berisi form untuk menambahkan produk baru. Form ini mencakup input untuk nama produk, harga, deskripsi, dan rating.
+- Modal diaktifkan oleh sebuah tombol di halaman utama. Setelah pengguna mengisi form dan menekan submit, JavaScript mengirim data tersebut ke server melalui AJAX POST.
 
-- Halaman Tambah Produk: Saya menyertakan elemen form yang diperlukan dan menggunakan Tailwind CSS untuk styling. Setiap elemen form didesain untuk konsisten dan responsif, memastikan bahwa halaman ini dapat diakses dengan baik di berbagai perangkat.
+4. Menangani Keamanan Data Form: 
+- Untuk mencegah XSS, saya memastikan bahwa semua input dari form disanitasi pada sisi server sebelum disimpan ke database.
+- Saya juga menerapkan escape secara hati-hati pada output yang dikembalikan ke halaman HTML, menghindari potensi eksekusi skrip berbahaya yang mungkin disisipkan melalui input yang tidak terkontrol.
 
-3. Desain Halaman Daftar Produk: Untuk kasus ketika belum ada produk yang tersimpan, saya menyiapkan sebuah layout yang menampilkan gambar dan pesan yang estetik menggunakan CSS. Gambar dan teks tersebut memberitahu pengguna bahwa belum ada produk yang tersimpan.
-Saat produk sudah tersimpan, saya menggunakan card untuk menampilkan produk. Saya memastikan bahwa setiap card dirancang untuk menonjolkan informasi penting dan menyediakan dua tombol fungsi—edit dan hapus—yang memudahkan pengelolaan produk.
+5. Memperbarui Halaman Secara Dinamis: 
+Setelah produk berhasil ditambahkan, form di modal dibersihkan, modal ditutup, dan saya memperbarui daftar produk yang ditampilkan di halaman utama secara dinamis menggunakan JavaScript untuk merefleksikan perubahan tanpa perlu memuat ulang halaman.
 
-4. Pembuatan Navbar yang Responsif: Saya merancang navbar yang responsif menggunakan Flexbox dan media queries untuk memastikan bahwa navigasi tetap fungsional dan estetik di berbagai ukuran layar. Navbar ini termasuk link ke halaman utama aplikasi seperti Beranda, Tentang, Daftar Produk, Registrasi, dan Login.
+6. Menampilkan Pesan Kesalahan: 
+Jika ada kegagalan dalam menambahkan produk baru (misalnya, karena validasi server), saya menampilkan pesan kesalahan di dalam modal untuk memberikan umpan balik kepada pengguna.
