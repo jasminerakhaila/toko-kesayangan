@@ -9,7 +9,7 @@ class Product(models.Model):
     price = models.IntegerField()
     description = models.TextField()
     # image_url = models.URLField(max_length=200, blank=True)  # URL gambar produk
-    rating = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)  # Rating produk
+    rating = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)  # Rating produk
     time = models.DateField(auto_now_add=True)  # Data produk ditampilkan
    
 
